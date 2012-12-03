@@ -17,7 +17,7 @@ For a later implementation:
 * ``/database/disconnect`` -- close connection to database (yet don't end node-server!)
 
 
-Useage with OscSqlite-SuperCollider-Class:
+Useage with (included) OscSqlite-SuperCollider-Class:
 ===========================================
 
 ```
