@@ -4,10 +4,7 @@ var db = new sqlite3.Database('osctest.db');
 
 var osc = require('node-osc');
 var client = new osc.Client('127.0.0.1', 57120);
-
-
 var oscServer = new osc.Server(13333, '0.0.0.0');
-var transactionIds = 1000; // generate ids for transactions
 
 oscServer.on("message", function (msg, rinfo) {
 	console.log("Message:");
@@ -22,13 +19,17 @@ oscServer.on("message", function (msg, rinfo) {
 	if(msg[0] == '/db/query') {
 		var tid = msg[1];
 		console.log("query: "+msg[2] + " (tid: "+tid+")");
-		db.run(msg[2], function(err, result) {
+		db.run(msg[2], function(err, rows) {
 			if(err) {
 				client.send('/db/transaction', tid, 'error', err.code);
 				console.log(err);
-			} else {
-				client.send('/db/transaction', tid, 'end', 'success');
+			} else {	
 				console.log(result);
+				if(rows) {
+					sendQueryResult(tid, rows);
+				} else {
+					client.send('/db/transaction', tid, 'end', 'success');
+				}
 			}
 		});
 	}
@@ -51,20 +52,22 @@ oscServer.on("message", function (msg, rinfo) {
 			if(err) {
 				client.send('/db/transaction', tid, 'error', err);
 			} else {
-				client.send('/db/transaction', tid, 'start');
-				for (var i=0; i < rows.length; i++) {
-					var msg = new osc.Message('/db/result', tid);
-					// TODO: js-foreach??
-					for (var field in rows[i]) {
-						msg.append(field);
-						msg.append(rows[i][field]);
-						// console.log("field: "+field);
-					};
-					client.send(msg);
-				};
-				client.send('/db/transaction', tid, 'end', 'data');
+				sendQueryResult(tid, rows);
 			}
 		});
 	}
 });
 
+
+function sendQueryResult (tid, rows) {
+	client.send('/db/transaction', tid, 'start');
+	for (var i=0; i < rows.length; i++) {
+		var msg = new osc.Message('/db/result', tid);
+		for (var field in rows[i]) {
+			msg.append(field);
+			msg.append(rows[i][field]);
+		};
+		client.send(msg);
+	};
+	client.send('/db/transaction', tid, 'end', 'data');
+}
