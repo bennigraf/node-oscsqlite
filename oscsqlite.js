@@ -1,6 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 // var db = new sqlite3.Database(':memory:');
 var db = new sqlite3.Database('osctest.db');
+// sqlite3.verbose();
 
 var osc = require('node-osc');
 var client = new osc.Client('127.0.0.1', 57120);
@@ -24,7 +25,7 @@ oscServer.on("message", function (msg, rinfo) {
 				client.send('/db/transaction', tid, 'error', err.code);
 				console.log(err);
 			} else {	
-				console.log(result);
+				console.log(rows);
 				if(rows) {
 					sendQueryResult(tid, rows);
 				} else {
