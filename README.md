@@ -20,7 +20,8 @@ For a later implementation:
 Useage with OscSqlite-SuperCollider-Class:
 ===========================================
 
-``o = OscSqlite()
+```
+o = OscSqlite()
 
 d = (field1: "This is", field2: "a little test");
 o.insert("mytable", d);
@@ -28,4 +29,5 @@ o.insert("mytable", d);
 o.select({ |data|
 	"callback:".postln;
 	data.postln;
-}, "mytable", "*", "id <= 3", "id DESC");``
+}, "mytable", "*", "id <= 3", "id DESC");
+```
