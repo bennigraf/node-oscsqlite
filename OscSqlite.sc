@@ -177,5 +177,4 @@ OscSqlite {
 			});
 		}, '/db/result'));
 	}
-	
 }
