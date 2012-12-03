@@ -48,3 +48,11 @@ Uses ``node-osc`` and ``node-sqlite3``, install with npm:
 npm install node-osc
 npm install sqlite3
 ```
+
+
+Contact & Copyright
+===================
+
+All stuff is (c) 2012 by Benjamin Graf, but feel free to do whatever you want with it.
+E-Mail: d@bennigraf.de
+Web: http://www.bennigraf.de
