@@ -18,7 +18,9 @@ For a later implementation:
 
 
 Useage with the (included) OscSqlite-SuperCollider-Class:
-=====================================================
+=========================================================
+
+(Run the node-osc-server in the terminal by ``node oscsqlite.js`` after defining the path to a database file in line 3.)
 
 ```
 o = OscSqlite()
