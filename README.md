@@ -31,3 +31,14 @@ o.select({ |data|
 	data.postln;
 }, "mytable", "*", "id <= 3", "id DESC");
 ```
+
+
+Dependencies
+=============
+
+Uses ``node-osc`` and ``node-sqlite3``, install with npm:
+
+```bash
+npm install node-osc
+npm install sqlite3
+```
