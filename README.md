@@ -17,8 +17,8 @@ For a later implementation:
 * ``/database/disconnect`` -- close connection to database (yet don't end node-server!)
 
 
-Useage with (included) OscSqlite-SuperCollider-Class:
-===========================================
+Useage with the (included) OscSqlite-SuperCollider-Class:
+=====================================================
 
 ```
 o = OscSqlite()
@@ -30,6 +30,10 @@ o.select({ |data|
 	"callback:".postln;
 	data.postln;
 }, "mytable", "*", "id <= 3", "id DESC");
+
+o.update("mytable", (field2: "a big test"), "id = 1");
+
+o.delete("mytable", "id = 1");
 ```
 
 
